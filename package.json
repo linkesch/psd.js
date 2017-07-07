@@ -27,7 +27,7 @@
     "jspack": "0.0.4",
     "lodash": "^2.4.2",
     "parse-engine-data": "^0.1.2",
-    "pngjs": "^0.4.0",
+    "pngjs": "^3.2.0",
     "rsvp": "^3.0.21"
   },
   "scripts": {
