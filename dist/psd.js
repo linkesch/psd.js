@@ -22624,7 +22624,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	
 	    TextElements.prototype.sizes = function() {
-	      if ((this.engineData == null) && !this.styles().FontSize) {
+	      if ((this.engineData == null) || !this.styles().FontSize) {
 	        return [];
 	      }
 	      return this.styles().FontSize;
