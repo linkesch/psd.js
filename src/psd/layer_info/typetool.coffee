@@ -54,7 +54,7 @@ module.exports = class TextElements extends LayerInfo
     @engineData.ResourceDict.FontSet.map (f) -> f.Name
 
   sizes: ->
-    return [] if not @engineData? and not @styles().FontSize?
+    return [] if not @engineData? and !@styles().FontSize
     @styles().FontSize
 
   alignment: ->
