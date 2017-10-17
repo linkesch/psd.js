@@ -1,4 +1,4 @@
-_ = require 'lodash'
+fp = require 'lodash/fp'
 TypeTool = require './typetool.coffee'
 
 module.exports = class LegacyTypeTool extends TypeTool
@@ -69,7 +69,7 @@ module.exports = class LegacyTypeTool extends TypeTool
 
     linesCount = @file.readShort()
     for i in [0...linesCount]
-      @lines.push _({}).tap (line) ->
+      @lines.push fp({}).tap (line) ->
         line.charCount = @file.readInt()
         line.orientation = @file.readShort()
         line.alignment = @file.readShort()

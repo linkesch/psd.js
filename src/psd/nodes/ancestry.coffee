@@ -1,4 +1,4 @@
-_ = require 'lodash'
+flatten = require 'lodash/flatten'
 
 module.exports =
   root: ->
@@ -33,7 +33,7 @@ module.exports =
   hasSiblings: -> @siblings().length > 1
   onlyChild: -> not @hasSiblings()
 
-  descendants: -> _.flatten @_children.map((n) -> n.subtree())
+  descendants: -> flatten @_children.map((n) -> n.subtree())
 
   subtree: -> [@].concat @descendants()
 

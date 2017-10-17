@@ -1,4 +1,4 @@
-_ = require 'lodash'
+merge = require 'lodash/merge'
 
 module.exports = class PathRecord
   constructor: (@file) ->
@@ -15,7 +15,7 @@ module.exports = class PathRecord
       else @file.seek(24, true)
 
   export: ->
-    _.merge { recordType: @recordType }, switch @recordType
+    merge { recordType: @recordType }, switch @recordType
       when 0, 3 then { numPoints: @numPoints }
       when 1, 2, 4, 5
         linked: @linked

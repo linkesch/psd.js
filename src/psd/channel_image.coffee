@@ -1,4 +1,4 @@
-_           = require 'lodash'
+some        = require 'lodash/some'
 Image       = require './image.coffee'
 ImageFormat = require './image_format.coffee'
 
@@ -22,7 +22,7 @@ module.exports = class ChannelImage extends Image
     super(file, header)
 
     @channelsInfo = @layer.channelsInfo
-    @hasMask = _.some @channelsInfo, (c) -> c.id < -1
+    @hasMask = some @channelsInfo, (c) -> c.id < -1
     @opacity = @layer.opacity / 255.0
     @maskData = []
 

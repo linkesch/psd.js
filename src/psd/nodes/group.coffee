@@ -1,4 +1,4 @@
-_    = require 'lodash'
+merge    = require 'lodash/merge'
 Node = require '../node.coffee'
 
 module.exports = class Group extends Node
@@ -11,6 +11,6 @@ module.exports = class Group extends Node
     return false unless child.isEmpty() for child in @_children
 
   export: ->
-    _.merge super(),
+    merge super(),
       type: 'group'
       children: @_children.map((c) -> c.export())

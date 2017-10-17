@@ -1,4 +1,5 @@
-_        = require 'lodash'
+min        = require 'lodash/min'
+max        = require 'lodash/max'
 {Module} = require 'coffeescript-module'
 
 module.exports = class Node extends Module
@@ -91,7 +92,7 @@ module.exports = class Node extends Module
     return if @isRoot()
 
     nonEmptyChildren = @_children.filter((c) -> not c.isEmpty())
-    @left = _.min(nonEmptyChildren.map((c) -> c.left)) or 0
-    @top = _.min(nonEmptyChildren.map((c) -> c.top)) or 0
-    @bottom = _.max(nonEmptyChildren.map((c) -> c.bottom)) or 0
-    @right = _.max(nonEmptyChildren.map((c) -> c.right)) or 0
+    @left = min(nonEmptyChildren.map((c) -> c.left)) or 0
+    @top = min(nonEmptyChildren.map((c) -> c.top)) or 0
+    @bottom = max(nonEmptyChildren.map((c) -> c.bottom)) or 0
+    @right = max(nonEmptyChildren.map((c) -> c.right)) or 0

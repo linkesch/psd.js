@@ -1,4 +1,4 @@
-_    = require 'lodash'
+merge    = require 'lodash/merge'
 Node = require '../node.coffee'
 
 module.exports = class Layer extends Node
@@ -7,7 +7,7 @@ module.exports = class Layer extends Node
   isEmpty: -> @width is 0 or @height is 0
 
   export: ->
-    _.merge super(),
+    merge super(),
       type: 'layer'
       mask: @layer.mask.export()
       text: @get('typeTool')?.export()

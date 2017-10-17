@@ -1,4 +1,4 @@
-_ = require 'lodash'
+reduce = require 'lodash/reduce'
 parseEngineData = require 'parse-engine-data'
 LayerInfo = require '../layer_info.coffee'
 Descriptor = require '../descriptor.coffee'
@@ -81,7 +81,7 @@ module.exports = class TextElements extends LayerInfo
     data = @engineData.EngineDict.StyleRun.RunArray.map (r) ->
       r.StyleSheet.StyleSheetData
 
-    @_styles = _.reduce(data, (m, o) ->
+    @_styles = reduce(data, (m, o) ->
       for own k, v of o
         m[k] or= []
         m[k].push v

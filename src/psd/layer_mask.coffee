@@ -1,15 +1,15 @@
-_ = require 'lodash'
+fp = require 'lodash/fp'
 Util = require './util.coffee'
 Layer = require './layer.coffee'
 
 # The layer mask is the overarching data structure that describes both
 # the layers/groups in the PSD document, and the global mask.
 # This part of the document is ordered as such:
-# 
+#
 # * Layers
 # * Layer images
 # * Global Mask
-# 
+#
 # The file does not need to have a global mask. If there is none, then
 # its length will be zero.
 module.exports = class LayerMask
@@ -56,7 +56,7 @@ module.exports = class LayerMask
 
     maskEnd = @file.tell() + length
 
-    @globalMask = _({}).tap (mask) =>
+    @globalMask = fp({}).tap (mask) =>
       mask.overlayColorSpace = @file.readShort()
       mask.colorComponents = [
         @file.readShort() >> 8
