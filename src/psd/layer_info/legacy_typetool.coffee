@@ -1,4 +1,4 @@
-fp = require 'lodash/fp'
+tap = require 'lodash/tap'
 TypeTool = require './typetool.coffee'
 
 module.exports = class LegacyTypeTool extends TypeTool
@@ -30,7 +30,7 @@ module.exports = class LegacyTypeTool extends TypeTool
 
     facesCount = @file.readShort()
     for i in [0...facesCount]
-      @faces.push _({}).tap (face) =>
+      @faces.push tap({}, (face) =>
         face.mark = @file.readShort()
         face.fontType = @file.readInt()
         face.fontName = @file.readString()
@@ -42,10 +42,11 @@ module.exports = class LegacyTypeTool extends TypeTool
 
         for j in [0...face.numberAxesVector]
           face.vector.push @file.readInt()
+      )
 
     stylesCount = @file.readShort()
     for i in [0...stylesCount]
-      @styles.push _({}).tap (style) =>
+      @styles.push tap({}, (style) =>
         style.mark = @file.readShort()
         style.faceMark = @file.readShort()
         style.size = @file.readInt()
@@ -58,6 +59,7 @@ module.exports = class LegacyTypeTool extends TypeTool
         @file.seek 1, true
 
         style.rotate = @file.readBoolean()
+      )
 
     @type = @file.readShort()
     @scalingFactor = @file.readInt()
@@ -69,12 +71,13 @@ module.exports = class LegacyTypeTool extends TypeTool
 
     linesCount = @file.readShort()
     for i in [0...linesCount]
-      @lines.push fp({}).tap (line) ->
+      @lines.push tap({}, (line) ->
         line.charCount = @file.readInt()
         line.orientation = @file.readShort()
         line.alignment = @file.readShort()
         line.actualChar = @file.readShort()
         line.style = @file.readShort()
+      )
 
     @color = @file.readSpaceColor()
     @antialias = @file.readBoolean()
