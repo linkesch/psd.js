@@ -25,7 +25,7 @@
     "coffeescript-module": "^0.2.1",
     "iconv-lite": "^0.4.13",
     "jspack": "0.0.4",
-    "lodash": "^2.4.2",
+    "lodash": "^4.17.4",
     "parse-engine-data": "^0.1.2",
     "pngjs": "^3.2.0",
     "rsvp": "^3.0.21"
