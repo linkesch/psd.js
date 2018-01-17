@@ -99,6 +99,8 @@ module.exports = class TextElements extends LayerInfo
       'font-size': "#{@sizes()[0]}pt"
       'color': "rgba(#{@colors()[0].join(', ')})"
       'text-align': @alignment()[0]
+      'line-height': "#{@lineHeight()[0]}pt"
+      'letter-spacing': "#{(@tracking()[0] || 0) / 1000}em"
 
     css = []
     for k, v of definition
@@ -107,6 +109,54 @@ module.exports = class TextElements extends LayerInfo
 
     css.join("\n")
 
+  lengthArray: ->
+    arr = @engineData.EngineDict.StyleRun.RunLengthArray
+    sum = reduce arr, (m, o) -> 
+      m + o
+
+    if sum - @textValue.length == 1
+      arr[arr.length - 1] = arr[arr.length - 1] - 1
+
+    arr
+
+  fontStyles: ->
+    data = @engineData.EngineDict.StyleRun.RunArray.map (r) -> 
+      r.StyleSheet.StyleSheetData
+
+    data = data.map (f) ->
+      if f.FauxItalic
+        return 'italic' 
+
+      return 'normal'
+
+  fontWeights: ->
+    data = @engineData.EngineDict.StyleRun.RunArray.map (r) ->
+      r.StyleSheet.StyleSheetData
+
+    data = data.map (f) ->
+      if f.FauxBold 
+        return 'bold'
+      
+      return 'normal'
+
+  textDecoration: ->
+    data = @engineData.EngineDict.StyleRun.RunArray.map (r) ->
+      r.StyleSheet.StyleSheetData
+
+    data = data.map (f) ->
+      if f.Underline 
+        return 'underline'
+      
+      return 'normal'
+
+  lineHeight: ->
+    return [] if not @engineData? or !@styles().Leading
+    @styles().Leading
+
+  tracking: ->
+    return [] if not @engineData? or !@styles().Tracking
+    @styles().Tracking
+
   export: ->
     value: @textValue
     font:
@@ -114,6 +164,12 @@ module.exports = class TextElements extends LayerInfo
       sizes: @sizes()
       colors: @colors()
       alignment: @alignment()
+      lengthArray: @lengthArray()
+      styles: @fontStyles()
+      weights: @fontWeights()
+      textDecoration: @textDecoration()
+      lineHeight: @lineHeight()
+      tracking: @tracking()
     left: @coords.left
     top: @coords.top
     right: @coords.right
