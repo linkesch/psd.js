@@ -17,3 +17,10 @@ module.exports = class ResolutionInfo
     @height_unit = @file.readUShort()
 
     @resource.data = @
+
+  export: ->
+    data = {}
+    for key in ['h_res', 'h_res_unit', 'width_unit', 'v_res', 'v_res_unit', 'height_unit']
+      data[key] = @[key]
+
+    data

@@ -14520,6 +14520,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return this.resource.data = this;
 	    };
 	
+	    ResolutionInfo.prototype["export"] = function() {
+	      var data, i, key, len, ref;
+	      data = {};
+	      ref = ['h_res', 'h_res_unit', 'width_unit', 'v_res', 'v_res_unit', 'height_unit'];
+	      for (i = 0, len = ref.length; i < len; i++) {
+	        key = ref[i];
+	        data[key] = this[key];
+	      }
+	      return data;
+	    };
+	
 	    return ResolutionInfo;
 	
 	  })();
@@ -22320,7 +22331,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	
 	    Root.prototype["export"] = function() {
-	      var ref;
+	      var ref, ref1;
 	      return {
 	        children: this._children.map(function(c) {
 	          return c["export"]();
@@ -22330,6 +22341,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          height: this.height,
 	          resources: {
 	            layerComps: ((ref = this.psd.resources.resource('layerComps')) != null ? ref["export"]() : void 0) || [],
+	            resolutionInfo: ((ref1 = this.psd.resources.resource('resolutionInfo')) != null ? ref1["export"]() : void 0) || [],
 	            guides: [],
 	            slices: []
 	          }
