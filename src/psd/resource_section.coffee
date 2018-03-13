@@ -2,7 +2,8 @@ tap = require 'lodash/tap'
 
 module.exports = class ResourceSection
   RESOURCES = [
-    require('./resources/layer_comps.coffee')
+    require('./resources/layer_comps.coffee'),
+    require('./resources/resolution_info.coffee')
   ]
 
   @factory: (resource) ->
