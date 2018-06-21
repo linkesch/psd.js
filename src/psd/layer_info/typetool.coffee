@@ -50,8 +50,8 @@ module.exports = class TextElements extends LayerInfo
       @transform[name] = @file.readDouble()
 
   fonts: ->
-    return [] unless @engineData?
-    @engineData.ResourceDict.FontSet.map (f) -> f.Name
+    return [] if not @engineData? or !@styles().Font
+    @styles().Font.map (f) => @engineData.ResourceDict.FontSet[f].Name
 
   sizes: ->
     return [] if not @engineData? or !@styles().FontSize
@@ -111,7 +111,7 @@ module.exports = class TextElements extends LayerInfo
 
   lengthArray: ->
     arr = @engineData.EngineDict.StyleRun.RunLengthArray
-    sum = reduce arr, (m, o) -> 
+    sum = reduce arr, (m, o) ->
       m + o
 
     if sum - @textValue.length == 1
@@ -120,12 +120,12 @@ module.exports = class TextElements extends LayerInfo
     arr
 
   fontStyles: ->
-    data = @engineData.EngineDict.StyleRun.RunArray.map (r) -> 
+    data = @engineData.EngineDict.StyleRun.RunArray.map (r) ->
       r.StyleSheet.StyleSheetData
 
     data = data.map (f) ->
       if f.FauxItalic
-        return 'italic' 
+        return 'italic'
 
       return 'normal'
 
@@ -134,9 +134,9 @@ module.exports = class TextElements extends LayerInfo
       r.StyleSheet.StyleSheetData
 
     data = data.map (f) ->
-      if f.FauxBold 
+      if f.FauxBold
         return 'bold'
-      
+
       return 'normal'
 
   textDecoration: ->
@@ -144,9 +144,9 @@ module.exports = class TextElements extends LayerInfo
       r.StyleSheet.StyleSheetData
 
     data = data.map (f) ->
-      if f.Underline 
+      if f.Underline
         return 'underline'
-      
+
       return 'normal'
 
   lineHeight: ->
@@ -160,7 +160,7 @@ module.exports = class TextElements extends LayerInfo
   export: ->
     value: @textValue
     font:
-      name: @fonts()[0]
+      name: @fonts()
       sizes: @sizes()
       colors: @colors()
       alignment: @alignment()

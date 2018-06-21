@@ -14855,12 +14855,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	
 	    TextElements.prototype.fonts = function() {
-	      if (this.engineData == null) {
+	      if ((this.engineData == null) || !this.styles().Font) {
 	        return [];
 	      }
-	      return this.engineData.ResourceDict.FontSet.map(function(f) {
-	        return f.Name;
-	      });
+	      return this.styles().Font.map((function(_this) {
+	        return function(f) {
+	          return _this.engineData.ResourceDict.FontSet[f].Name;
+	        };
+	      })(this));
 	    };
 	
 	    TextElements.prototype.sizes = function() {
@@ -15008,7 +15010,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return {
 	        value: this.textValue,
 	        font: {
-	          name: this.fonts()[0],
+	          name: this.fonts(),
 	          sizes: this.sizes(),
 	          colors: this.colors(),
 	          alignment: this.alignment(),
