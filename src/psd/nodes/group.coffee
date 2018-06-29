@@ -13,4 +13,5 @@ module.exports = class Group extends Node
   export: ->
     merge super(),
       type: 'group'
+      mask: @layer.mask.export()
       children: @_children.map((c) -> c.export())

@@ -22864,6 +22864,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    Group.prototype["export"] = function() {
 	      return merge(Group.__super__["export"].call(this), {
 	        type: 'group',
+	        mask: this.layer.mask["export"](),
 	        children: this._children.map(function(c) {
 	          return c["export"]();
 	        })
